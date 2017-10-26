@@ -1,0 +1,2192 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    INT
+
+Grammar
+
+Rule 0     S' -> sql_stmt
+Rule 1     sql_stmt -> select_stmt SEMICOLON
+Rule 2     sql_stmt -> insert_stmt SEMICOLON
+Rule 3     sql_stmt -> update_stmt SEMICOLON
+Rule 4     sql_stmt -> delete_stmt SEMICOLON
+Rule 5     sql_stmt -> create_stmt SEMICOLON
+Rule 6     sql_stmt -> drop_stmt SEMICOLON
+Rule 7     sql_stmt -> begin_stmt SEMICOLON
+Rule 8     sql_stmt -> commit_stmt SEMICOLON
+Rule 9     sql_stmt -> rollback_stmt SEMICOLON
+Rule 10    select_stmt -> SELECT distinct_specified select_list FROM from_list where_clause limit
+Rule 11    distinct_specified -> <empty>
+Rule 12    distinct_specified -> ALL
+Rule 13    distinct_specified -> DISTINCT
+Rule 14    select_list -> select_item
+Rule 15    select_list -> select_list COMMA select_item
+Rule 16    select_item -> column
+Rule 17    select_item -> column_val
+Rule 18    select_item -> STAR
+Rule 19    column -> ID
+Rule 20    column -> table DOT ID
+Rule 21    column_val -> INTEGER_LITERAL
+Rule 22    column_val -> FLOAT_LITERAL
+Rule 23    column_val -> STRING_LITERAL
+Rule 24    column_val -> NULL
+Rule 25    from_list -> from_item
+Rule 26    from_list -> from_list COMMA from_item
+Rule 27    from_item -> table range_variable
+Rule 28    table -> ID
+Rule 29    range_variable -> <empty>
+Rule 30    range_variable -> ID
+Rule 31    range_variable -> AS ID
+Rule 32    where_clause -> <empty>
+Rule 33    where_clause -> WHERE conditional_expression
+Rule 34    conditional_expression -> conditional_term
+Rule 35    conditional_expression -> conditional_expression OR conditional_term
+Rule 36    conditional_term -> conditional_factor
+Rule 37    conditional_term -> conditional_term AND conditional_factor
+Rule 38    conditional_factor -> conditional_primary
+Rule 39    conditional_factor -> NOT conditional_primary
+Rule 40    conditional_primary -> comparison
+Rule 41    conditional_primary -> LPAREN conditional_expression RPAREN
+Rule 42    comparison -> cterm EQ cterm
+Rule 43    comparison -> cterm NOTEQ cterm
+Rule 44    comparison -> cterm LT cterm
+Rule 45    comparison -> cterm GT cterm
+Rule 46    comparison -> cterm LTEQ cterm
+Rule 47    comparison -> cterm GTEQ cterm
+Rule 48    comparison -> cterm LIKE STRING_LITERAL
+Rule 49    comparison -> cterm CLIKE STRING_LITERAL
+Rule 50    comparison -> cterm IS NULL
+Rule 51    comparison -> cterm IS NOT NULL
+Rule 52    cterm -> column
+Rule 53    cterm -> INTEGER_LITERAL
+Rule 54    cterm -> FLOAT_LITERAL
+Rule 55    cterm -> STRING_LITERAL
+Rule 56    limit -> <empty>
+Rule 57    limit -> LIMIT INTEGER_LITERAL
+Rule 58    limit -> LIMIT INTEGER_LITERAL COMMA INTEGER_LITERAL
+Rule 59    create_stmt -> CREATE TABLE table LPAREN col_def_list RPAREN
+Rule 60    col_def_list -> col_def
+Rule 61    col_def_list -> col_def_list COMMA col_def
+Rule 62    col_def -> column INTEGER col_def_opts
+Rule 63    col_def -> column CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+Rule 64    col_def -> column VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+Rule 65    col_def -> column REAL col_def_opts
+Rule 66    col_def_opts -> <empty>
+Rule 67    col_def_opts -> NOT NULL
+Rule 68    col_def_opts -> PRIMARY KEY
+Rule 69    col_def_opts -> NOT NULL PRIMARY KEY
+Rule 70    col_def_opts -> PRIMARY KEY NOT NULL
+Rule 71    insert_stmt -> INSERT INTO table insert_col_clause VALUES LPAREN insert_val_list RPAREN
+Rule 72    insert_col_clause -> <empty>
+Rule 73    insert_col_clause -> LPAREN insert_col_list RPAREN
+Rule 74    insert_col_list -> column
+Rule 75    insert_col_list -> insert_col_list COMMA column
+Rule 76    insert_val_list -> column_val
+Rule 77    insert_val_list -> insert_val_list COMMA column_val
+Rule 78    delete_stmt -> DELETE FROM table where_clause
+Rule 79    update_stmt -> UPDATE table SET update_list where_clause
+Rule 80    update_list -> column EQ column_val
+Rule 81    update_list -> update_list COMMA column EQ column_val
+Rule 82    drop_stmt -> DROP TABLE table
+Rule 83    begin_stmt -> BEGIN WORK
+Rule 84    commit_stmt -> COMMIT optional_work
+Rule 85    rollback_stmt -> ROLLBACK optional_work
+Rule 86    optional_work -> <empty>
+Rule 87    optional_work -> WORK
+
+Terminals, with rules where they appear
+
+ALL                  : 12
+AND                  : 37
+AS                   : 31
+BEGIN                : 83
+CHAR                 : 63
+CLIKE                : 49
+COMMA                : 15 26 58 61 75 77 81
+COMMIT               : 84
+CREATE               : 59
+DELETE               : 78
+DISTINCT             : 13
+DOT                  : 20
+DROP                 : 82
+EQ                   : 42 80 81
+FLOAT_LITERAL        : 22 54
+FROM                 : 10 78
+GT                   : 45
+GTEQ                 : 47
+ID                   : 19 20 28 30 31
+INSERT               : 71
+INT                  : 
+INTEGER              : 62
+INTEGER_LITERAL      : 21 53 57 58 58 63 64
+INTO                 : 71
+IS                   : 50 51
+KEY                  : 68 69 70
+LIKE                 : 48
+LIMIT                : 57 58
+LPAREN               : 41 59 63 64 71 73
+LT                   : 44
+LTEQ                 : 46
+NOT                  : 39 51 67 69 70
+NOTEQ                : 43
+NULL                 : 24 50 51 67 69 70
+OR                   : 35
+PRIMARY              : 68 69 70
+REAL                 : 65
+ROLLBACK             : 85
+RPAREN               : 41 59 63 64 71 73
+SELECT               : 10
+SEMICOLON            : 1 2 3 4 5 6 7 8 9
+SET                  : 79
+STAR                 : 18
+STRING_LITERAL       : 23 48 49 55
+TABLE                : 59 82
+UPDATE               : 79
+VALUES               : 71
+VARCHAR              : 64
+WHERE                : 33
+WORK                 : 83 87
+error                : 
+
+Nonterminals, with rules where they appear
+
+begin_stmt           : 7
+col_def              : 60 61
+col_def_list         : 59 61
+col_def_opts         : 62 63 64 65
+column               : 16 52 62 63 64 65 74 75 80 81
+column_val           : 17 76 77 80 81
+commit_stmt          : 8
+comparison           : 40
+conditional_expression : 33 35 41
+conditional_factor   : 36 37
+conditional_primary  : 38 39
+conditional_term     : 34 35 37
+create_stmt          : 5
+cterm                : 42 42 43 43 44 44 45 45 46 46 47 47 48 49 50 51
+delete_stmt          : 4
+distinct_specified   : 10
+drop_stmt            : 6
+from_item            : 25 26
+from_list            : 10 26
+insert_col_clause    : 71
+insert_col_list      : 73 75
+insert_stmt          : 2
+insert_val_list      : 71 77
+limit                : 10
+optional_work        : 84 85
+range_variable       : 27
+rollback_stmt        : 9
+select_item          : 14 15
+select_list          : 10 15
+select_stmt          : 1
+sql_stmt             : 0
+table                : 20 27 59 71 78 79 82
+update_list          : 79 81
+update_stmt          : 3
+where_clause         : 10 78 79
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . sql_stmt
+    (1) sql_stmt -> . select_stmt SEMICOLON
+    (2) sql_stmt -> . insert_stmt SEMICOLON
+    (3) sql_stmt -> . update_stmt SEMICOLON
+    (4) sql_stmt -> . delete_stmt SEMICOLON
+    (5) sql_stmt -> . create_stmt SEMICOLON
+    (6) sql_stmt -> . drop_stmt SEMICOLON
+    (7) sql_stmt -> . begin_stmt SEMICOLON
+    (8) sql_stmt -> . commit_stmt SEMICOLON
+    (9) sql_stmt -> . rollback_stmt SEMICOLON
+    (10) select_stmt -> . SELECT distinct_specified select_list FROM from_list where_clause limit
+    (71) insert_stmt -> . INSERT INTO table insert_col_clause VALUES LPAREN insert_val_list RPAREN
+    (79) update_stmt -> . UPDATE table SET update_list where_clause
+    (78) delete_stmt -> . DELETE FROM table where_clause
+    (59) create_stmt -> . CREATE TABLE table LPAREN col_def_list RPAREN
+    (82) drop_stmt -> . DROP TABLE table
+    (83) begin_stmt -> . BEGIN WORK
+    (84) commit_stmt -> . COMMIT optional_work
+    (85) rollback_stmt -> . ROLLBACK optional_work
+
+    SELECT          shift and go to state 4
+    INSERT          shift and go to state 6
+    UPDATE          shift and go to state 16
+    DELETE          shift and go to state 19
+    CREATE          shift and go to state 9
+    DROP            shift and go to state 10
+    BEGIN           shift and go to state 7
+    COMMIT          shift and go to state 2
+    ROLLBACK        shift and go to state 15
+
+    begin_stmt                     shift and go to state 17
+    insert_stmt                    shift and go to state 14
+    rollback_stmt                  shift and go to state 1
+    drop_stmt                      shift and go to state 8
+    delete_stmt                    shift and go to state 18
+    create_stmt                    shift and go to state 11
+    select_stmt                    shift and go to state 12
+    sql_stmt                       shift and go to state 13
+    commit_stmt                    shift and go to state 3
+    update_stmt                    shift and go to state 5
+
+state 1
+
+    (9) sql_stmt -> rollback_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 20
+
+
+state 2
+
+    (84) commit_stmt -> COMMIT . optional_work
+    (86) optional_work -> .
+    (87) optional_work -> . WORK
+
+    SEMICOLON       reduce using rule 86 (optional_work -> .)
+    WORK            shift and go to state 21
+
+    optional_work                  shift and go to state 22
+
+state 3
+
+    (8) sql_stmt -> commit_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 23
+
+
+state 4
+
+    (10) select_stmt -> SELECT . distinct_specified select_list FROM from_list where_clause limit
+    (11) distinct_specified -> .
+    (12) distinct_specified -> . ALL
+    (13) distinct_specified -> . DISTINCT
+
+    STAR            reduce using rule 11 (distinct_specified -> .)
+    ID              reduce using rule 11 (distinct_specified -> .)
+    INTEGER_LITERAL reduce using rule 11 (distinct_specified -> .)
+    FLOAT_LITERAL   reduce using rule 11 (distinct_specified -> .)
+    STRING_LITERAL  reduce using rule 11 (distinct_specified -> .)
+    NULL            reduce using rule 11 (distinct_specified -> .)
+    ALL             shift and go to state 25
+    DISTINCT        shift and go to state 26
+
+    distinct_specified             shift and go to state 24
+
+state 5
+
+    (3) sql_stmt -> update_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 27
+
+
+state 6
+
+    (71) insert_stmt -> INSERT . INTO table insert_col_clause VALUES LPAREN insert_val_list RPAREN
+
+    INTO            shift and go to state 28
+
+
+state 7
+
+    (83) begin_stmt -> BEGIN . WORK
+
+    WORK            shift and go to state 29
+
+
+state 8
+
+    (6) sql_stmt -> drop_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 30
+
+
+state 9
+
+    (59) create_stmt -> CREATE . TABLE table LPAREN col_def_list RPAREN
+
+    TABLE           shift and go to state 31
+
+
+state 10
+
+    (82) drop_stmt -> DROP . TABLE table
+
+    TABLE           shift and go to state 32
+
+
+state 11
+
+    (5) sql_stmt -> create_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 33
+
+
+state 12
+
+    (1) sql_stmt -> select_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 34
+
+
+state 13
+
+    (0) S' -> sql_stmt .
+
+
+
+state 14
+
+    (2) sql_stmt -> insert_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 35
+
+
+state 15
+
+    (85) rollback_stmt -> ROLLBACK . optional_work
+    (86) optional_work -> .
+    (87) optional_work -> . WORK
+
+    SEMICOLON       reduce using rule 86 (optional_work -> .)
+    WORK            shift and go to state 21
+
+    optional_work                  shift and go to state 36
+
+state 16
+
+    (79) update_stmt -> UPDATE . table SET update_list where_clause
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    table                          shift and go to state 37
+
+state 17
+
+    (7) sql_stmt -> begin_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 39
+
+
+state 18
+
+    (4) sql_stmt -> delete_stmt . SEMICOLON
+
+    SEMICOLON       shift and go to state 40
+
+
+state 19
+
+    (78) delete_stmt -> DELETE . FROM table where_clause
+
+    FROM            shift and go to state 41
+
+
+state 20
+
+    (9) sql_stmt -> rollback_stmt SEMICOLON .
+
+    $end            reduce using rule 9 (sql_stmt -> rollback_stmt SEMICOLON .)
+
+
+state 21
+
+    (87) optional_work -> WORK .
+
+    SEMICOLON       reduce using rule 87 (optional_work -> WORK .)
+
+
+state 22
+
+    (84) commit_stmt -> COMMIT optional_work .
+
+    SEMICOLON       reduce using rule 84 (commit_stmt -> COMMIT optional_work .)
+
+
+state 23
+
+    (8) sql_stmt -> commit_stmt SEMICOLON .
+
+    $end            reduce using rule 8 (sql_stmt -> commit_stmt SEMICOLON .)
+
+
+state 24
+
+    (10) select_stmt -> SELECT distinct_specified . select_list FROM from_list where_clause limit
+    (14) select_list -> . select_item
+    (15) select_list -> . select_list COMMA select_item
+    (16) select_item -> . column
+    (17) select_item -> . column_val
+    (18) select_item -> . STAR
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (21) column_val -> . INTEGER_LITERAL
+    (22) column_val -> . FLOAT_LITERAL
+    (23) column_val -> . STRING_LITERAL
+    (24) column_val -> . NULL
+    (28) table -> . ID
+
+    STAR            shift and go to state 48
+    ID              shift and go to state 51
+    INTEGER_LITERAL shift and go to state 45
+    FLOAT_LITERAL   shift and go to state 43
+    STRING_LITERAL  shift and go to state 52
+    NULL            shift and go to state 42
+
+    column                         shift and go to state 44
+    select_list                    shift and go to state 46
+    column_val                     shift and go to state 47
+    table                          shift and go to state 49
+    select_item                    shift and go to state 50
+
+state 25
+
+    (12) distinct_specified -> ALL .
+
+    STAR            reduce using rule 12 (distinct_specified -> ALL .)
+    ID              reduce using rule 12 (distinct_specified -> ALL .)
+    INTEGER_LITERAL reduce using rule 12 (distinct_specified -> ALL .)
+    FLOAT_LITERAL   reduce using rule 12 (distinct_specified -> ALL .)
+    STRING_LITERAL  reduce using rule 12 (distinct_specified -> ALL .)
+    NULL            reduce using rule 12 (distinct_specified -> ALL .)
+
+
+state 26
+
+    (13) distinct_specified -> DISTINCT .
+
+    STAR            reduce using rule 13 (distinct_specified -> DISTINCT .)
+    ID              reduce using rule 13 (distinct_specified -> DISTINCT .)
+    INTEGER_LITERAL reduce using rule 13 (distinct_specified -> DISTINCT .)
+    FLOAT_LITERAL   reduce using rule 13 (distinct_specified -> DISTINCT .)
+    STRING_LITERAL  reduce using rule 13 (distinct_specified -> DISTINCT .)
+    NULL            reduce using rule 13 (distinct_specified -> DISTINCT .)
+
+
+state 27
+
+    (3) sql_stmt -> update_stmt SEMICOLON .
+
+    $end            reduce using rule 3 (sql_stmt -> update_stmt SEMICOLON .)
+
+
+state 28
+
+    (71) insert_stmt -> INSERT INTO . table insert_col_clause VALUES LPAREN insert_val_list RPAREN
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    table                          shift and go to state 53
+
+state 29
+
+    (83) begin_stmt -> BEGIN WORK .
+
+    SEMICOLON       reduce using rule 83 (begin_stmt -> BEGIN WORK .)
+
+
+state 30
+
+    (6) sql_stmt -> drop_stmt SEMICOLON .
+
+    $end            reduce using rule 6 (sql_stmt -> drop_stmt SEMICOLON .)
+
+
+state 31
+
+    (59) create_stmt -> CREATE TABLE . table LPAREN col_def_list RPAREN
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    table                          shift and go to state 54
+
+state 32
+
+    (82) drop_stmt -> DROP TABLE . table
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    table                          shift and go to state 55
+
+state 33
+
+    (5) sql_stmt -> create_stmt SEMICOLON .
+
+    $end            reduce using rule 5 (sql_stmt -> create_stmt SEMICOLON .)
+
+
+state 34
+
+    (1) sql_stmt -> select_stmt SEMICOLON .
+
+    $end            reduce using rule 1 (sql_stmt -> select_stmt SEMICOLON .)
+
+
+state 35
+
+    (2) sql_stmt -> insert_stmt SEMICOLON .
+
+    $end            reduce using rule 2 (sql_stmt -> insert_stmt SEMICOLON .)
+
+
+state 36
+
+    (85) rollback_stmt -> ROLLBACK optional_work .
+
+    SEMICOLON       reduce using rule 85 (rollback_stmt -> ROLLBACK optional_work .)
+
+
+state 37
+
+    (79) update_stmt -> UPDATE table . SET update_list where_clause
+
+    SET             shift and go to state 56
+
+
+state 38
+
+    (28) table -> ID .
+
+    LPAREN          reduce using rule 28 (table -> ID .)
+    VALUES          reduce using rule 28 (table -> ID .)
+    WHERE           reduce using rule 28 (table -> ID .)
+    SEMICOLON       reduce using rule 28 (table -> ID .)
+    ID              reduce using rule 28 (table -> ID .)
+    AS              reduce using rule 28 (table -> ID .)
+    COMMA           reduce using rule 28 (table -> ID .)
+    LIMIT           reduce using rule 28 (table -> ID .)
+    SET             reduce using rule 28 (table -> ID .)
+
+
+state 39
+
+    (7) sql_stmt -> begin_stmt SEMICOLON .
+
+    $end            reduce using rule 7 (sql_stmt -> begin_stmt SEMICOLON .)
+
+
+state 40
+
+    (4) sql_stmt -> delete_stmt SEMICOLON .
+
+    $end            reduce using rule 4 (sql_stmt -> delete_stmt SEMICOLON .)
+
+
+state 41
+
+    (78) delete_stmt -> DELETE FROM . table where_clause
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    table                          shift and go to state 57
+
+state 42
+
+    (24) column_val -> NULL .
+
+    FROM            reduce using rule 24 (column_val -> NULL .)
+    COMMA           reduce using rule 24 (column_val -> NULL .)
+    RPAREN          reduce using rule 24 (column_val -> NULL .)
+    WHERE           reduce using rule 24 (column_val -> NULL .)
+    SEMICOLON       reduce using rule 24 (column_val -> NULL .)
+
+
+state 43
+
+    (22) column_val -> FLOAT_LITERAL .
+
+    FROM            reduce using rule 22 (column_val -> FLOAT_LITERAL .)
+    COMMA           reduce using rule 22 (column_val -> FLOAT_LITERAL .)
+    RPAREN          reduce using rule 22 (column_val -> FLOAT_LITERAL .)
+    WHERE           reduce using rule 22 (column_val -> FLOAT_LITERAL .)
+    SEMICOLON       reduce using rule 22 (column_val -> FLOAT_LITERAL .)
+
+
+state 44
+
+    (16) select_item -> column .
+
+    FROM            reduce using rule 16 (select_item -> column .)
+    COMMA           reduce using rule 16 (select_item -> column .)
+
+
+state 45
+
+    (21) column_val -> INTEGER_LITERAL .
+
+    FROM            reduce using rule 21 (column_val -> INTEGER_LITERAL .)
+    COMMA           reduce using rule 21 (column_val -> INTEGER_LITERAL .)
+    RPAREN          reduce using rule 21 (column_val -> INTEGER_LITERAL .)
+    WHERE           reduce using rule 21 (column_val -> INTEGER_LITERAL .)
+    SEMICOLON       reduce using rule 21 (column_val -> INTEGER_LITERAL .)
+
+
+state 46
+
+    (10) select_stmt -> SELECT distinct_specified select_list . FROM from_list where_clause limit
+    (15) select_list -> select_list . COMMA select_item
+
+    FROM            shift and go to state 58
+    COMMA           shift and go to state 59
+
+
+state 47
+
+    (17) select_item -> column_val .
+
+    FROM            reduce using rule 17 (select_item -> column_val .)
+    COMMA           reduce using rule 17 (select_item -> column_val .)
+
+
+state 48
+
+    (18) select_item -> STAR .
+
+    FROM            reduce using rule 18 (select_item -> STAR .)
+    COMMA           reduce using rule 18 (select_item -> STAR .)
+
+
+state 49
+
+    (20) column -> table . DOT ID
+
+    DOT             shift and go to state 60
+
+
+state 50
+
+    (14) select_list -> select_item .
+
+    FROM            reduce using rule 14 (select_list -> select_item .)
+    COMMA           reduce using rule 14 (select_list -> select_item .)
+
+
+state 51
+
+    (19) column -> ID .
+    (28) table -> ID .
+
+    AND             reduce using rule 19 (column -> ID .)
+    OR              reduce using rule 19 (column -> ID .)
+    SEMICOLON       reduce using rule 19 (column -> ID .)
+    LIMIT           reduce using rule 19 (column -> ID .)
+    RPAREN          reduce using rule 19 (column -> ID .)
+    EQ              reduce using rule 19 (column -> ID .)
+    NOTEQ           reduce using rule 19 (column -> ID .)
+    LT              reduce using rule 19 (column -> ID .)
+    GT              reduce using rule 19 (column -> ID .)
+    LTEQ            reduce using rule 19 (column -> ID .)
+    GTEQ            reduce using rule 19 (column -> ID .)
+    LIKE            reduce using rule 19 (column -> ID .)
+    CLIKE           reduce using rule 19 (column -> ID .)
+    IS              reduce using rule 19 (column -> ID .)
+    FROM            reduce using rule 19 (column -> ID .)
+    COMMA           reduce using rule 19 (column -> ID .)
+    INTEGER         reduce using rule 19 (column -> ID .)
+    CHAR            reduce using rule 19 (column -> ID .)
+    VARCHAR         reduce using rule 19 (column -> ID .)
+    REAL            reduce using rule 19 (column -> ID .)
+    DOT             reduce using rule 28 (table -> ID .)
+
+
+state 52
+
+    (23) column_val -> STRING_LITERAL .
+
+    FROM            reduce using rule 23 (column_val -> STRING_LITERAL .)
+    COMMA           reduce using rule 23 (column_val -> STRING_LITERAL .)
+    RPAREN          reduce using rule 23 (column_val -> STRING_LITERAL .)
+    WHERE           reduce using rule 23 (column_val -> STRING_LITERAL .)
+    SEMICOLON       reduce using rule 23 (column_val -> STRING_LITERAL .)
+
+
+state 53
+
+    (71) insert_stmt -> INSERT INTO table . insert_col_clause VALUES LPAREN insert_val_list RPAREN
+    (72) insert_col_clause -> .
+    (73) insert_col_clause -> . LPAREN insert_col_list RPAREN
+
+    VALUES          reduce using rule 72 (insert_col_clause -> .)
+    LPAREN          shift and go to state 62
+
+    insert_col_clause              shift and go to state 61
+
+state 54
+
+    (59) create_stmt -> CREATE TABLE table . LPAREN col_def_list RPAREN
+
+    LPAREN          shift and go to state 63
+
+
+state 55
+
+    (82) drop_stmt -> DROP TABLE table .
+
+    SEMICOLON       reduce using rule 82 (drop_stmt -> DROP TABLE table .)
+
+
+state 56
+
+    (79) update_stmt -> UPDATE table SET . update_list where_clause
+    (80) update_list -> . column EQ column_val
+    (81) update_list -> . update_list COMMA column EQ column_val
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    ID              shift and go to state 51
+
+    column                         shift and go to state 64
+    table                          shift and go to state 49
+    update_list                    shift and go to state 65
+
+state 57
+
+    (78) delete_stmt -> DELETE FROM table . where_clause
+    (32) where_clause -> .
+    (33) where_clause -> . WHERE conditional_expression
+
+    SEMICOLON       reduce using rule 32 (where_clause -> .)
+    WHERE           shift and go to state 67
+
+    where_clause                   shift and go to state 66
+
+state 58
+
+    (10) select_stmt -> SELECT distinct_specified select_list FROM . from_list where_clause limit
+    (25) from_list -> . from_item
+    (26) from_list -> . from_list COMMA from_item
+    (27) from_item -> . table range_variable
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    from_list                      shift and go to state 68
+    from_item                      shift and go to state 69
+    table                          shift and go to state 70
+
+state 59
+
+    (15) select_list -> select_list COMMA . select_item
+    (16) select_item -> . column
+    (17) select_item -> . column_val
+    (18) select_item -> . STAR
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (21) column_val -> . INTEGER_LITERAL
+    (22) column_val -> . FLOAT_LITERAL
+    (23) column_val -> . STRING_LITERAL
+    (24) column_val -> . NULL
+    (28) table -> . ID
+
+    STAR            shift and go to state 48
+    ID              shift and go to state 51
+    INTEGER_LITERAL shift and go to state 45
+    FLOAT_LITERAL   shift and go to state 43
+    STRING_LITERAL  shift and go to state 52
+    NULL            shift and go to state 42
+
+    select_item                    shift and go to state 71
+    column_val                     shift and go to state 47
+    column                         shift and go to state 44
+    table                          shift and go to state 49
+
+state 60
+
+    (20) column -> table DOT . ID
+
+    ID              shift and go to state 72
+
+
+state 61
+
+    (71) insert_stmt -> INSERT INTO table insert_col_clause . VALUES LPAREN insert_val_list RPAREN
+
+    VALUES          shift and go to state 73
+
+
+state 62
+
+    (73) insert_col_clause -> LPAREN . insert_col_list RPAREN
+    (74) insert_col_list -> . column
+    (75) insert_col_list -> . insert_col_list COMMA column
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    ID              shift and go to state 51
+
+    insert_col_list                shift and go to state 74
+    column                         shift and go to state 75
+    table                          shift and go to state 49
+
+state 63
+
+    (59) create_stmt -> CREATE TABLE table LPAREN . col_def_list RPAREN
+    (60) col_def_list -> . col_def
+    (61) col_def_list -> . col_def_list COMMA col_def
+    (62) col_def -> . column INTEGER col_def_opts
+    (63) col_def -> . column CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+    (64) col_def -> . column VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+    (65) col_def -> . column REAL col_def_opts
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    ID              shift and go to state 51
+
+    column                         shift and go to state 77
+    table                          shift and go to state 49
+    col_def_list                   shift and go to state 76
+    col_def                        shift and go to state 78
+
+state 64
+
+    (80) update_list -> column . EQ column_val
+
+    EQ              shift and go to state 79
+
+
+state 65
+
+    (79) update_stmt -> UPDATE table SET update_list . where_clause
+    (81) update_list -> update_list . COMMA column EQ column_val
+    (32) where_clause -> .
+    (33) where_clause -> . WHERE conditional_expression
+
+    COMMA           shift and go to state 81
+    SEMICOLON       reduce using rule 32 (where_clause -> .)
+    WHERE           shift and go to state 67
+
+    where_clause                   shift and go to state 80
+
+state 66
+
+    (78) delete_stmt -> DELETE FROM table where_clause .
+
+    SEMICOLON       reduce using rule 78 (delete_stmt -> DELETE FROM table where_clause .)
+
+
+state 67
+
+    (33) where_clause -> WHERE . conditional_expression
+    (34) conditional_expression -> . conditional_term
+    (35) conditional_expression -> . conditional_expression OR conditional_term
+    (36) conditional_term -> . conditional_factor
+    (37) conditional_term -> . conditional_term AND conditional_factor
+    (38) conditional_factor -> . conditional_primary
+    (39) conditional_factor -> . NOT conditional_primary
+    (40) conditional_primary -> . comparison
+    (41) conditional_primary -> . LPAREN conditional_expression RPAREN
+    (42) comparison -> . cterm EQ cterm
+    (43) comparison -> . cterm NOTEQ cterm
+    (44) comparison -> . cterm LT cterm
+    (45) comparison -> . cterm GT cterm
+    (46) comparison -> . cterm LTEQ cterm
+    (47) comparison -> . cterm GTEQ cterm
+    (48) comparison -> . cterm LIKE STRING_LITERAL
+    (49) comparison -> . cterm CLIKE STRING_LITERAL
+    (50) comparison -> . cterm IS NULL
+    (51) comparison -> . cterm IS NOT NULL
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    NOT             shift and go to state 93
+    LPAREN          shift and go to state 87
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    comparison                     shift and go to state 89
+    cterm                          shift and go to state 82
+    conditional_term               shift and go to state 86
+    conditional_primary            shift and go to state 83
+    column                         shift and go to state 91
+    conditional_expression         shift and go to state 92
+    conditional_factor             shift and go to state 85
+    table                          shift and go to state 49
+
+state 68
+
+    (10) select_stmt -> SELECT distinct_specified select_list FROM from_list . where_clause limit
+    (26) from_list -> from_list . COMMA from_item
+    (32) where_clause -> .
+    (33) where_clause -> . WHERE conditional_expression
+
+    COMMA           shift and go to state 95
+    LIMIT           reduce using rule 32 (where_clause -> .)
+    SEMICOLON       reduce using rule 32 (where_clause -> .)
+    WHERE           shift and go to state 67
+
+    where_clause                   shift and go to state 94
+
+state 69
+
+    (25) from_list -> from_item .
+
+    COMMA           reduce using rule 25 (from_list -> from_item .)
+    WHERE           reduce using rule 25 (from_list -> from_item .)
+    LIMIT           reduce using rule 25 (from_list -> from_item .)
+    SEMICOLON       reduce using rule 25 (from_list -> from_item .)
+
+
+state 70
+
+    (27) from_item -> table . range_variable
+    (29) range_variable -> .
+    (30) range_variable -> . ID
+    (31) range_variable -> . AS ID
+
+    COMMA           reduce using rule 29 (range_variable -> .)
+    WHERE           reduce using rule 29 (range_variable -> .)
+    LIMIT           reduce using rule 29 (range_variable -> .)
+    SEMICOLON       reduce using rule 29 (range_variable -> .)
+    ID              shift and go to state 98
+    AS              shift and go to state 97
+
+    range_variable                 shift and go to state 96
+
+state 71
+
+    (15) select_list -> select_list COMMA select_item .
+
+    FROM            reduce using rule 15 (select_list -> select_list COMMA select_item .)
+    COMMA           reduce using rule 15 (select_list -> select_list COMMA select_item .)
+
+
+state 72
+
+    (20) column -> table DOT ID .
+
+    AND             reduce using rule 20 (column -> table DOT ID .)
+    OR              reduce using rule 20 (column -> table DOT ID .)
+    SEMICOLON       reduce using rule 20 (column -> table DOT ID .)
+    LIMIT           reduce using rule 20 (column -> table DOT ID .)
+    RPAREN          reduce using rule 20 (column -> table DOT ID .)
+    EQ              reduce using rule 20 (column -> table DOT ID .)
+    NOTEQ           reduce using rule 20 (column -> table DOT ID .)
+    LT              reduce using rule 20 (column -> table DOT ID .)
+    GT              reduce using rule 20 (column -> table DOT ID .)
+    LTEQ            reduce using rule 20 (column -> table DOT ID .)
+    GTEQ            reduce using rule 20 (column -> table DOT ID .)
+    LIKE            reduce using rule 20 (column -> table DOT ID .)
+    CLIKE           reduce using rule 20 (column -> table DOT ID .)
+    IS              reduce using rule 20 (column -> table DOT ID .)
+    FROM            reduce using rule 20 (column -> table DOT ID .)
+    COMMA           reduce using rule 20 (column -> table DOT ID .)
+    INTEGER         reduce using rule 20 (column -> table DOT ID .)
+    CHAR            reduce using rule 20 (column -> table DOT ID .)
+    VARCHAR         reduce using rule 20 (column -> table DOT ID .)
+    REAL            reduce using rule 20 (column -> table DOT ID .)
+
+
+state 73
+
+    (71) insert_stmt -> INSERT INTO table insert_col_clause VALUES . LPAREN insert_val_list RPAREN
+
+    LPAREN          shift and go to state 99
+
+
+state 74
+
+    (73) insert_col_clause -> LPAREN insert_col_list . RPAREN
+    (75) insert_col_list -> insert_col_list . COMMA column
+
+    RPAREN          shift and go to state 101
+    COMMA           shift and go to state 100
+
+
+state 75
+
+    (74) insert_col_list -> column .
+
+    RPAREN          reduce using rule 74 (insert_col_list -> column .)
+    COMMA           reduce using rule 74 (insert_col_list -> column .)
+
+
+state 76
+
+    (59) create_stmt -> CREATE TABLE table LPAREN col_def_list . RPAREN
+    (61) col_def_list -> col_def_list . COMMA col_def
+
+    RPAREN          shift and go to state 102
+    COMMA           shift and go to state 103
+
+
+state 77
+
+    (62) col_def -> column . INTEGER col_def_opts
+    (63) col_def -> column . CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+    (64) col_def -> column . VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+    (65) col_def -> column . REAL col_def_opts
+
+    INTEGER         shift and go to state 106
+    CHAR            shift and go to state 105
+    VARCHAR         shift and go to state 107
+    REAL            shift and go to state 104
+
+
+state 78
+
+    (60) col_def_list -> col_def .
+
+    RPAREN          reduce using rule 60 (col_def_list -> col_def .)
+    COMMA           reduce using rule 60 (col_def_list -> col_def .)
+
+
+state 79
+
+    (80) update_list -> column EQ . column_val
+    (21) column_val -> . INTEGER_LITERAL
+    (22) column_val -> . FLOAT_LITERAL
+    (23) column_val -> . STRING_LITERAL
+    (24) column_val -> . NULL
+
+    INTEGER_LITERAL shift and go to state 45
+    FLOAT_LITERAL   shift and go to state 43
+    STRING_LITERAL  shift and go to state 52
+    NULL            shift and go to state 42
+
+    column_val                     shift and go to state 108
+
+state 80
+
+    (79) update_stmt -> UPDATE table SET update_list where_clause .
+
+    SEMICOLON       reduce using rule 79 (update_stmt -> UPDATE table SET update_list where_clause .)
+
+
+state 81
+
+    (81) update_list -> update_list COMMA . column EQ column_val
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    ID              shift and go to state 51
+
+    column                         shift and go to state 109
+    table                          shift and go to state 49
+
+state 82
+
+    (42) comparison -> cterm . EQ cterm
+    (43) comparison -> cterm . NOTEQ cterm
+    (44) comparison -> cterm . LT cterm
+    (45) comparison -> cterm . GT cterm
+    (46) comparison -> cterm . LTEQ cterm
+    (47) comparison -> cterm . GTEQ cterm
+    (48) comparison -> cterm . LIKE STRING_LITERAL
+    (49) comparison -> cterm . CLIKE STRING_LITERAL
+    (50) comparison -> cterm . IS NULL
+    (51) comparison -> cterm . IS NOT NULL
+
+    EQ              shift and go to state 117
+    NOTEQ           shift and go to state 113
+    LT              shift and go to state 116
+    GT              shift and go to state 110
+    LTEQ            shift and go to state 114
+    GTEQ            shift and go to state 112
+    LIKE            shift and go to state 111
+    CLIKE           shift and go to state 115
+    IS              shift and go to state 118
+
+
+state 83
+
+    (38) conditional_factor -> conditional_primary .
+
+    AND             reduce using rule 38 (conditional_factor -> conditional_primary .)
+    OR              reduce using rule 38 (conditional_factor -> conditional_primary .)
+    SEMICOLON       reduce using rule 38 (conditional_factor -> conditional_primary .)
+    LIMIT           reduce using rule 38 (conditional_factor -> conditional_primary .)
+    RPAREN          reduce using rule 38 (conditional_factor -> conditional_primary .)
+
+
+state 84
+
+    (54) cterm -> FLOAT_LITERAL .
+
+    AND             reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    OR              reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    SEMICOLON       reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    LIMIT           reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    RPAREN          reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    EQ              reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    NOTEQ           reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    LT              reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    GT              reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    LTEQ            reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    GTEQ            reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    LIKE            reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    CLIKE           reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+    IS              reduce using rule 54 (cterm -> FLOAT_LITERAL .)
+
+
+state 85
+
+    (36) conditional_term -> conditional_factor .
+
+    AND             reduce using rule 36 (conditional_term -> conditional_factor .)
+    OR              reduce using rule 36 (conditional_term -> conditional_factor .)
+    SEMICOLON       reduce using rule 36 (conditional_term -> conditional_factor .)
+    LIMIT           reduce using rule 36 (conditional_term -> conditional_factor .)
+    RPAREN          reduce using rule 36 (conditional_term -> conditional_factor .)
+
+
+state 86
+
+    (34) conditional_expression -> conditional_term .
+    (37) conditional_term -> conditional_term . AND conditional_factor
+
+    RPAREN          reduce using rule 34 (conditional_expression -> conditional_term .)
+    OR              reduce using rule 34 (conditional_expression -> conditional_term .)
+    SEMICOLON       reduce using rule 34 (conditional_expression -> conditional_term .)
+    LIMIT           reduce using rule 34 (conditional_expression -> conditional_term .)
+    AND             shift and go to state 119
+
+
+state 87
+
+    (41) conditional_primary -> LPAREN . conditional_expression RPAREN
+    (34) conditional_expression -> . conditional_term
+    (35) conditional_expression -> . conditional_expression OR conditional_term
+    (36) conditional_term -> . conditional_factor
+    (37) conditional_term -> . conditional_term AND conditional_factor
+    (38) conditional_factor -> . conditional_primary
+    (39) conditional_factor -> . NOT conditional_primary
+    (40) conditional_primary -> . comparison
+    (41) conditional_primary -> . LPAREN conditional_expression RPAREN
+    (42) comparison -> . cterm EQ cterm
+    (43) comparison -> . cterm NOTEQ cterm
+    (44) comparison -> . cterm LT cterm
+    (45) comparison -> . cterm GT cterm
+    (46) comparison -> . cterm LTEQ cterm
+    (47) comparison -> . cterm GTEQ cterm
+    (48) comparison -> . cterm LIKE STRING_LITERAL
+    (49) comparison -> . cterm CLIKE STRING_LITERAL
+    (50) comparison -> . cterm IS NULL
+    (51) comparison -> . cterm IS NOT NULL
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    NOT             shift and go to state 93
+    LPAREN          shift and go to state 87
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    comparison                     shift and go to state 89
+    cterm                          shift and go to state 82
+    conditional_term               shift and go to state 86
+    conditional_primary            shift and go to state 83
+    column                         shift and go to state 91
+    conditional_expression         shift and go to state 120
+    conditional_factor             shift and go to state 85
+    table                          shift and go to state 49
+
+state 88
+
+    (53) cterm -> INTEGER_LITERAL .
+
+    AND             reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    OR              reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    SEMICOLON       reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    LIMIT           reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    RPAREN          reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    EQ              reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    NOTEQ           reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    LT              reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    GT              reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    LTEQ            reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    GTEQ            reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    LIKE            reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    CLIKE           reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+    IS              reduce using rule 53 (cterm -> INTEGER_LITERAL .)
+
+
+state 89
+
+    (40) conditional_primary -> comparison .
+
+    AND             reduce using rule 40 (conditional_primary -> comparison .)
+    OR              reduce using rule 40 (conditional_primary -> comparison .)
+    SEMICOLON       reduce using rule 40 (conditional_primary -> comparison .)
+    LIMIT           reduce using rule 40 (conditional_primary -> comparison .)
+    RPAREN          reduce using rule 40 (conditional_primary -> comparison .)
+
+
+state 90
+
+    (55) cterm -> STRING_LITERAL .
+
+    AND             reduce using rule 55 (cterm -> STRING_LITERAL .)
+    OR              reduce using rule 55 (cterm -> STRING_LITERAL .)
+    SEMICOLON       reduce using rule 55 (cterm -> STRING_LITERAL .)
+    LIMIT           reduce using rule 55 (cterm -> STRING_LITERAL .)
+    RPAREN          reduce using rule 55 (cterm -> STRING_LITERAL .)
+    EQ              reduce using rule 55 (cterm -> STRING_LITERAL .)
+    NOTEQ           reduce using rule 55 (cterm -> STRING_LITERAL .)
+    LT              reduce using rule 55 (cterm -> STRING_LITERAL .)
+    GT              reduce using rule 55 (cterm -> STRING_LITERAL .)
+    LTEQ            reduce using rule 55 (cterm -> STRING_LITERAL .)
+    GTEQ            reduce using rule 55 (cterm -> STRING_LITERAL .)
+    LIKE            reduce using rule 55 (cterm -> STRING_LITERAL .)
+    CLIKE           reduce using rule 55 (cterm -> STRING_LITERAL .)
+    IS              reduce using rule 55 (cterm -> STRING_LITERAL .)
+
+
+state 91
+
+    (52) cterm -> column .
+
+    AND             reduce using rule 52 (cterm -> column .)
+    OR              reduce using rule 52 (cterm -> column .)
+    SEMICOLON       reduce using rule 52 (cterm -> column .)
+    LIMIT           reduce using rule 52 (cterm -> column .)
+    RPAREN          reduce using rule 52 (cterm -> column .)
+    EQ              reduce using rule 52 (cterm -> column .)
+    NOTEQ           reduce using rule 52 (cterm -> column .)
+    LT              reduce using rule 52 (cterm -> column .)
+    GT              reduce using rule 52 (cterm -> column .)
+    LTEQ            reduce using rule 52 (cterm -> column .)
+    GTEQ            reduce using rule 52 (cterm -> column .)
+    LIKE            reduce using rule 52 (cterm -> column .)
+    CLIKE           reduce using rule 52 (cterm -> column .)
+    IS              reduce using rule 52 (cterm -> column .)
+
+
+state 92
+
+    (33) where_clause -> WHERE conditional_expression .
+    (35) conditional_expression -> conditional_expression . OR conditional_term
+
+    SEMICOLON       reduce using rule 33 (where_clause -> WHERE conditional_expression .)
+    LIMIT           reduce using rule 33 (where_clause -> WHERE conditional_expression .)
+    OR              shift and go to state 121
+
+
+state 93
+
+    (39) conditional_factor -> NOT . conditional_primary
+    (40) conditional_primary -> . comparison
+    (41) conditional_primary -> . LPAREN conditional_expression RPAREN
+    (42) comparison -> . cterm EQ cterm
+    (43) comparison -> . cterm NOTEQ cterm
+    (44) comparison -> . cterm LT cterm
+    (45) comparison -> . cterm GT cterm
+    (46) comparison -> . cterm LTEQ cterm
+    (47) comparison -> . cterm GTEQ cterm
+    (48) comparison -> . cterm LIKE STRING_LITERAL
+    (49) comparison -> . cterm CLIKE STRING_LITERAL
+    (50) comparison -> . cterm IS NULL
+    (51) comparison -> . cterm IS NOT NULL
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    LPAREN          shift and go to state 87
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    comparison                     shift and go to state 89
+    cterm                          shift and go to state 82
+    conditional_primary            shift and go to state 122
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+
+state 94
+
+    (10) select_stmt -> SELECT distinct_specified select_list FROM from_list where_clause . limit
+    (56) limit -> .
+    (57) limit -> . LIMIT INTEGER_LITERAL
+    (58) limit -> . LIMIT INTEGER_LITERAL COMMA INTEGER_LITERAL
+
+    SEMICOLON       reduce using rule 56 (limit -> .)
+    LIMIT           shift and go to state 124
+
+    limit                          shift and go to state 123
+
+state 95
+
+    (26) from_list -> from_list COMMA . from_item
+    (27) from_item -> . table range_variable
+    (28) table -> . ID
+
+    ID              shift and go to state 38
+
+    table                          shift and go to state 70
+    from_item                      shift and go to state 125
+
+state 96
+
+    (27) from_item -> table range_variable .
+
+    COMMA           reduce using rule 27 (from_item -> table range_variable .)
+    WHERE           reduce using rule 27 (from_item -> table range_variable .)
+    LIMIT           reduce using rule 27 (from_item -> table range_variable .)
+    SEMICOLON       reduce using rule 27 (from_item -> table range_variable .)
+
+
+state 97
+
+    (31) range_variable -> AS . ID
+
+    ID              shift and go to state 126
+
+
+state 98
+
+    (30) range_variable -> ID .
+
+    COMMA           reduce using rule 30 (range_variable -> ID .)
+    WHERE           reduce using rule 30 (range_variable -> ID .)
+    LIMIT           reduce using rule 30 (range_variable -> ID .)
+    SEMICOLON       reduce using rule 30 (range_variable -> ID .)
+
+
+state 99
+
+    (71) insert_stmt -> INSERT INTO table insert_col_clause VALUES LPAREN . insert_val_list RPAREN
+    (76) insert_val_list -> . column_val
+    (77) insert_val_list -> . insert_val_list COMMA column_val
+    (21) column_val -> . INTEGER_LITERAL
+    (22) column_val -> . FLOAT_LITERAL
+    (23) column_val -> . STRING_LITERAL
+    (24) column_val -> . NULL
+
+    INTEGER_LITERAL shift and go to state 45
+    FLOAT_LITERAL   shift and go to state 43
+    STRING_LITERAL  shift and go to state 52
+    NULL            shift and go to state 42
+
+    column_val                     shift and go to state 127
+    insert_val_list                shift and go to state 128
+
+state 100
+
+    (75) insert_col_list -> insert_col_list COMMA . column
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    ID              shift and go to state 51
+
+    column                         shift and go to state 129
+    table                          shift and go to state 49
+
+state 101
+
+    (73) insert_col_clause -> LPAREN insert_col_list RPAREN .
+
+    VALUES          reduce using rule 73 (insert_col_clause -> LPAREN insert_col_list RPAREN .)
+
+
+state 102
+
+    (59) create_stmt -> CREATE TABLE table LPAREN col_def_list RPAREN .
+
+    SEMICOLON       reduce using rule 59 (create_stmt -> CREATE TABLE table LPAREN col_def_list RPAREN .)
+
+
+state 103
+
+    (61) col_def_list -> col_def_list COMMA . col_def
+    (62) col_def -> . column INTEGER col_def_opts
+    (63) col_def -> . column CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+    (64) col_def -> . column VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts
+    (65) col_def -> . column REAL col_def_opts
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    ID              shift and go to state 51
+
+    column                         shift and go to state 77
+    table                          shift and go to state 49
+    col_def                        shift and go to state 130
+
+state 104
+
+    (65) col_def -> column REAL . col_def_opts
+    (66) col_def_opts -> .
+    (67) col_def_opts -> . NOT NULL
+    (68) col_def_opts -> . PRIMARY KEY
+    (69) col_def_opts -> . NOT NULL PRIMARY KEY
+    (70) col_def_opts -> . PRIMARY KEY NOT NULL
+
+    RPAREN          reduce using rule 66 (col_def_opts -> .)
+    COMMA           reduce using rule 66 (col_def_opts -> .)
+    NOT             shift and go to state 133
+    PRIMARY         shift and go to state 132
+
+    col_def_opts                   shift and go to state 131
+
+state 105
+
+    (63) col_def -> column CHAR . LPAREN INTEGER_LITERAL RPAREN col_def_opts
+
+    LPAREN          shift and go to state 134
+
+
+state 106
+
+    (62) col_def -> column INTEGER . col_def_opts
+    (66) col_def_opts -> .
+    (67) col_def_opts -> . NOT NULL
+    (68) col_def_opts -> . PRIMARY KEY
+    (69) col_def_opts -> . NOT NULL PRIMARY KEY
+    (70) col_def_opts -> . PRIMARY KEY NOT NULL
+
+    RPAREN          reduce using rule 66 (col_def_opts -> .)
+    COMMA           reduce using rule 66 (col_def_opts -> .)
+    NOT             shift and go to state 133
+    PRIMARY         shift and go to state 132
+
+    col_def_opts                   shift and go to state 135
+
+state 107
+
+    (64) col_def -> column VARCHAR . LPAREN INTEGER_LITERAL RPAREN col_def_opts
+
+    LPAREN          shift and go to state 136
+
+
+state 108
+
+    (80) update_list -> column EQ column_val .
+
+    COMMA           reduce using rule 80 (update_list -> column EQ column_val .)
+    WHERE           reduce using rule 80 (update_list -> column EQ column_val .)
+    SEMICOLON       reduce using rule 80 (update_list -> column EQ column_val .)
+
+
+state 109
+
+    (81) update_list -> update_list COMMA column . EQ column_val
+
+    EQ              shift and go to state 137
+
+
+state 110
+
+    (45) comparison -> cterm GT . cterm
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+    cterm                          shift and go to state 138
+
+state 111
+
+    (48) comparison -> cterm LIKE . STRING_LITERAL
+
+    STRING_LITERAL  shift and go to state 139
+
+
+state 112
+
+    (47) comparison -> cterm GTEQ . cterm
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+    cterm                          shift and go to state 140
+
+state 113
+
+    (43) comparison -> cterm NOTEQ . cterm
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+    cterm                          shift and go to state 141
+
+state 114
+
+    (46) comparison -> cterm LTEQ . cterm
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+    cterm                          shift and go to state 142
+
+state 115
+
+    (49) comparison -> cterm CLIKE . STRING_LITERAL
+
+    STRING_LITERAL  shift and go to state 143
+
+
+state 116
+
+    (44) comparison -> cterm LT . cterm
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+    cterm                          shift and go to state 144
+
+state 117
+
+    (42) comparison -> cterm EQ . cterm
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    column                         shift and go to state 91
+    table                          shift and go to state 49
+    cterm                          shift and go to state 145
+
+state 118
+
+    (50) comparison -> cterm IS . NULL
+    (51) comparison -> cterm IS . NOT NULL
+
+    NULL            shift and go to state 147
+    NOT             shift and go to state 146
+
+
+state 119
+
+    (37) conditional_term -> conditional_term AND . conditional_factor
+    (38) conditional_factor -> . conditional_primary
+    (39) conditional_factor -> . NOT conditional_primary
+    (40) conditional_primary -> . comparison
+    (41) conditional_primary -> . LPAREN conditional_expression RPAREN
+    (42) comparison -> . cterm EQ cterm
+    (43) comparison -> . cterm NOTEQ cterm
+    (44) comparison -> . cterm LT cterm
+    (45) comparison -> . cterm GT cterm
+    (46) comparison -> . cterm LTEQ cterm
+    (47) comparison -> . cterm GTEQ cterm
+    (48) comparison -> . cterm LIKE STRING_LITERAL
+    (49) comparison -> . cterm CLIKE STRING_LITERAL
+    (50) comparison -> . cterm IS NULL
+    (51) comparison -> . cterm IS NOT NULL
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    NOT             shift and go to state 93
+    LPAREN          shift and go to state 87
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    comparison                     shift and go to state 89
+    cterm                          shift and go to state 82
+    conditional_primary            shift and go to state 83
+    column                         shift and go to state 91
+    conditional_factor             shift and go to state 148
+    table                          shift and go to state 49
+
+state 120
+
+    (41) conditional_primary -> LPAREN conditional_expression . RPAREN
+    (35) conditional_expression -> conditional_expression . OR conditional_term
+
+    RPAREN          shift and go to state 149
+    OR              shift and go to state 121
+
+
+state 121
+
+    (35) conditional_expression -> conditional_expression OR . conditional_term
+    (36) conditional_term -> . conditional_factor
+    (37) conditional_term -> . conditional_term AND conditional_factor
+    (38) conditional_factor -> . conditional_primary
+    (39) conditional_factor -> . NOT conditional_primary
+    (40) conditional_primary -> . comparison
+    (41) conditional_primary -> . LPAREN conditional_expression RPAREN
+    (42) comparison -> . cterm EQ cterm
+    (43) comparison -> . cterm NOTEQ cterm
+    (44) comparison -> . cterm LT cterm
+    (45) comparison -> . cterm GT cterm
+    (46) comparison -> . cterm LTEQ cterm
+    (47) comparison -> . cterm GTEQ cterm
+    (48) comparison -> . cterm LIKE STRING_LITERAL
+    (49) comparison -> . cterm CLIKE STRING_LITERAL
+    (50) comparison -> . cterm IS NULL
+    (51) comparison -> . cterm IS NOT NULL
+    (52) cterm -> . column
+    (53) cterm -> . INTEGER_LITERAL
+    (54) cterm -> . FLOAT_LITERAL
+    (55) cterm -> . STRING_LITERAL
+    (19) column -> . ID
+    (20) column -> . table DOT ID
+    (28) table -> . ID
+
+    NOT             shift and go to state 93
+    LPAREN          shift and go to state 87
+    INTEGER_LITERAL shift and go to state 88
+    FLOAT_LITERAL   shift and go to state 84
+    STRING_LITERAL  shift and go to state 90
+    ID              shift and go to state 51
+
+    comparison                     shift and go to state 89
+    cterm                          shift and go to state 82
+    conditional_term               shift and go to state 150
+    conditional_primary            shift and go to state 83
+    column                         shift and go to state 91
+    conditional_factor             shift and go to state 85
+    table                          shift and go to state 49
+
+state 122
+
+    (39) conditional_factor -> NOT conditional_primary .
+
+    AND             reduce using rule 39 (conditional_factor -> NOT conditional_primary .)
+    OR              reduce using rule 39 (conditional_factor -> NOT conditional_primary .)
+    SEMICOLON       reduce using rule 39 (conditional_factor -> NOT conditional_primary .)
+    LIMIT           reduce using rule 39 (conditional_factor -> NOT conditional_primary .)
+    RPAREN          reduce using rule 39 (conditional_factor -> NOT conditional_primary .)
+
+
+state 123
+
+    (10) select_stmt -> SELECT distinct_specified select_list FROM from_list where_clause limit .
+
+    SEMICOLON       reduce using rule 10 (select_stmt -> SELECT distinct_specified select_list FROM from_list where_clause limit .)
+
+
+state 124
+
+    (57) limit -> LIMIT . INTEGER_LITERAL
+    (58) limit -> LIMIT . INTEGER_LITERAL COMMA INTEGER_LITERAL
+
+    INTEGER_LITERAL shift and go to state 151
+
+
+state 125
+
+    (26) from_list -> from_list COMMA from_item .
+
+    COMMA           reduce using rule 26 (from_list -> from_list COMMA from_item .)
+    WHERE           reduce using rule 26 (from_list -> from_list COMMA from_item .)
+    LIMIT           reduce using rule 26 (from_list -> from_list COMMA from_item .)
+    SEMICOLON       reduce using rule 26 (from_list -> from_list COMMA from_item .)
+
+
+state 126
+
+    (31) range_variable -> AS ID .
+
+    COMMA           reduce using rule 31 (range_variable -> AS ID .)
+    WHERE           reduce using rule 31 (range_variable -> AS ID .)
+    LIMIT           reduce using rule 31 (range_variable -> AS ID .)
+    SEMICOLON       reduce using rule 31 (range_variable -> AS ID .)
+
+
+state 127
+
+    (76) insert_val_list -> column_val .
+
+    RPAREN          reduce using rule 76 (insert_val_list -> column_val .)
+    COMMA           reduce using rule 76 (insert_val_list -> column_val .)
+
+
+state 128
+
+    (71) insert_stmt -> INSERT INTO table insert_col_clause VALUES LPAREN insert_val_list . RPAREN
+    (77) insert_val_list -> insert_val_list . COMMA column_val
+
+    RPAREN          shift and go to state 152
+    COMMA           shift and go to state 153
+
+
+state 129
+
+    (75) insert_col_list -> insert_col_list COMMA column .
+
+    RPAREN          reduce using rule 75 (insert_col_list -> insert_col_list COMMA column .)
+    COMMA           reduce using rule 75 (insert_col_list -> insert_col_list COMMA column .)
+
+
+state 130
+
+    (61) col_def_list -> col_def_list COMMA col_def .
+
+    RPAREN          reduce using rule 61 (col_def_list -> col_def_list COMMA col_def .)
+    COMMA           reduce using rule 61 (col_def_list -> col_def_list COMMA col_def .)
+
+
+state 131
+
+    (65) col_def -> column REAL col_def_opts .
+
+    RPAREN          reduce using rule 65 (col_def -> column REAL col_def_opts .)
+    COMMA           reduce using rule 65 (col_def -> column REAL col_def_opts .)
+
+
+state 132
+
+    (68) col_def_opts -> PRIMARY . KEY
+    (70) col_def_opts -> PRIMARY . KEY NOT NULL
+
+    KEY             shift and go to state 154
+
+
+state 133
+
+    (67) col_def_opts -> NOT . NULL
+    (69) col_def_opts -> NOT . NULL PRIMARY KEY
+
+    NULL            shift and go to state 155
+
+
+state 134
+
+    (63) col_def -> column CHAR LPAREN . INTEGER_LITERAL RPAREN col_def_opts
+
+    INTEGER_LITERAL shift and go to state 156
+
+
+state 135
+
+    (62) col_def -> column INTEGER col_def_opts .
+
+    RPAREN          reduce using rule 62 (col_def -> column INTEGER col_def_opts .)
+    COMMA           reduce using rule 62 (col_def -> column INTEGER col_def_opts .)
+
+
+state 136
+
+    (64) col_def -> column VARCHAR LPAREN . INTEGER_LITERAL RPAREN col_def_opts
+
+    INTEGER_LITERAL shift and go to state 157
+
+
+state 137
+
+    (81) update_list -> update_list COMMA column EQ . column_val
+    (21) column_val -> . INTEGER_LITERAL
+    (22) column_val -> . FLOAT_LITERAL
+    (23) column_val -> . STRING_LITERAL
+    (24) column_val -> . NULL
+
+    INTEGER_LITERAL shift and go to state 45
+    FLOAT_LITERAL   shift and go to state 43
+    STRING_LITERAL  shift and go to state 52
+    NULL            shift and go to state 42
+
+    column_val                     shift and go to state 158
+
+state 138
+
+    (45) comparison -> cterm GT cterm .
+
+    AND             reduce using rule 45 (comparison -> cterm GT cterm .)
+    OR              reduce using rule 45 (comparison -> cterm GT cterm .)
+    SEMICOLON       reduce using rule 45 (comparison -> cterm GT cterm .)
+    LIMIT           reduce using rule 45 (comparison -> cterm GT cterm .)
+    RPAREN          reduce using rule 45 (comparison -> cterm GT cterm .)
+
+
+state 139
+
+    (48) comparison -> cterm LIKE STRING_LITERAL .
+
+    AND             reduce using rule 48 (comparison -> cterm LIKE STRING_LITERAL .)
+    OR              reduce using rule 48 (comparison -> cterm LIKE STRING_LITERAL .)
+    SEMICOLON       reduce using rule 48 (comparison -> cterm LIKE STRING_LITERAL .)
+    LIMIT           reduce using rule 48 (comparison -> cterm LIKE STRING_LITERAL .)
+    RPAREN          reduce using rule 48 (comparison -> cterm LIKE STRING_LITERAL .)
+
+
+state 140
+
+    (47) comparison -> cterm GTEQ cterm .
+
+    AND             reduce using rule 47 (comparison -> cterm GTEQ cterm .)
+    OR              reduce using rule 47 (comparison -> cterm GTEQ cterm .)
+    SEMICOLON       reduce using rule 47 (comparison -> cterm GTEQ cterm .)
+    LIMIT           reduce using rule 47 (comparison -> cterm GTEQ cterm .)
+    RPAREN          reduce using rule 47 (comparison -> cterm GTEQ cterm .)
+
+
+state 141
+
+    (43) comparison -> cterm NOTEQ cterm .
+
+    AND             reduce using rule 43 (comparison -> cterm NOTEQ cterm .)
+    OR              reduce using rule 43 (comparison -> cterm NOTEQ cterm .)
+    SEMICOLON       reduce using rule 43 (comparison -> cterm NOTEQ cterm .)
+    LIMIT           reduce using rule 43 (comparison -> cterm NOTEQ cterm .)
+    RPAREN          reduce using rule 43 (comparison -> cterm NOTEQ cterm .)
+
+
+state 142
+
+    (46) comparison -> cterm LTEQ cterm .
+
+    AND             reduce using rule 46 (comparison -> cterm LTEQ cterm .)
+    OR              reduce using rule 46 (comparison -> cterm LTEQ cterm .)
+    SEMICOLON       reduce using rule 46 (comparison -> cterm LTEQ cterm .)
+    LIMIT           reduce using rule 46 (comparison -> cterm LTEQ cterm .)
+    RPAREN          reduce using rule 46 (comparison -> cterm LTEQ cterm .)
+
+
+state 143
+
+    (49) comparison -> cterm CLIKE STRING_LITERAL .
+
+    AND             reduce using rule 49 (comparison -> cterm CLIKE STRING_LITERAL .)
+    OR              reduce using rule 49 (comparison -> cterm CLIKE STRING_LITERAL .)
+    SEMICOLON       reduce using rule 49 (comparison -> cterm CLIKE STRING_LITERAL .)
+    LIMIT           reduce using rule 49 (comparison -> cterm CLIKE STRING_LITERAL .)
+    RPAREN          reduce using rule 49 (comparison -> cterm CLIKE STRING_LITERAL .)
+
+
+state 144
+
+    (44) comparison -> cterm LT cterm .
+
+    AND             reduce using rule 44 (comparison -> cterm LT cterm .)
+    OR              reduce using rule 44 (comparison -> cterm LT cterm .)
+    SEMICOLON       reduce using rule 44 (comparison -> cterm LT cterm .)
+    LIMIT           reduce using rule 44 (comparison -> cterm LT cterm .)
+    RPAREN          reduce using rule 44 (comparison -> cterm LT cterm .)
+
+
+state 145
+
+    (42) comparison -> cterm EQ cterm .
+
+    AND             reduce using rule 42 (comparison -> cterm EQ cterm .)
+    OR              reduce using rule 42 (comparison -> cterm EQ cterm .)
+    SEMICOLON       reduce using rule 42 (comparison -> cterm EQ cterm .)
+    LIMIT           reduce using rule 42 (comparison -> cterm EQ cterm .)
+    RPAREN          reduce using rule 42 (comparison -> cterm EQ cterm .)
+
+
+state 146
+
+    (51) comparison -> cterm IS NOT . NULL
+
+    NULL            shift and go to state 159
+
+
+state 147
+
+    (50) comparison -> cterm IS NULL .
+
+    AND             reduce using rule 50 (comparison -> cterm IS NULL .)
+    OR              reduce using rule 50 (comparison -> cterm IS NULL .)
+    SEMICOLON       reduce using rule 50 (comparison -> cterm IS NULL .)
+    LIMIT           reduce using rule 50 (comparison -> cterm IS NULL .)
+    RPAREN          reduce using rule 50 (comparison -> cterm IS NULL .)
+
+
+state 148
+
+    (37) conditional_term -> conditional_term AND conditional_factor .
+
+    AND             reduce using rule 37 (conditional_term -> conditional_term AND conditional_factor .)
+    OR              reduce using rule 37 (conditional_term -> conditional_term AND conditional_factor .)
+    SEMICOLON       reduce using rule 37 (conditional_term -> conditional_term AND conditional_factor .)
+    LIMIT           reduce using rule 37 (conditional_term -> conditional_term AND conditional_factor .)
+    RPAREN          reduce using rule 37 (conditional_term -> conditional_term AND conditional_factor .)
+
+
+state 149
+
+    (41) conditional_primary -> LPAREN conditional_expression RPAREN .
+
+    AND             reduce using rule 41 (conditional_primary -> LPAREN conditional_expression RPAREN .)
+    OR              reduce using rule 41 (conditional_primary -> LPAREN conditional_expression RPAREN .)
+    SEMICOLON       reduce using rule 41 (conditional_primary -> LPAREN conditional_expression RPAREN .)
+    LIMIT           reduce using rule 41 (conditional_primary -> LPAREN conditional_expression RPAREN .)
+    RPAREN          reduce using rule 41 (conditional_primary -> LPAREN conditional_expression RPAREN .)
+
+
+state 150
+
+    (35) conditional_expression -> conditional_expression OR conditional_term .
+    (37) conditional_term -> conditional_term . AND conditional_factor
+
+    RPAREN          reduce using rule 35 (conditional_expression -> conditional_expression OR conditional_term .)
+    OR              reduce using rule 35 (conditional_expression -> conditional_expression OR conditional_term .)
+    SEMICOLON       reduce using rule 35 (conditional_expression -> conditional_expression OR conditional_term .)
+    LIMIT           reduce using rule 35 (conditional_expression -> conditional_expression OR conditional_term .)
+    AND             shift and go to state 119
+
+
+state 151
+
+    (57) limit -> LIMIT INTEGER_LITERAL .
+    (58) limit -> LIMIT INTEGER_LITERAL . COMMA INTEGER_LITERAL
+
+    SEMICOLON       reduce using rule 57 (limit -> LIMIT INTEGER_LITERAL .)
+    COMMA           shift and go to state 160
+
+
+state 152
+
+    (71) insert_stmt -> INSERT INTO table insert_col_clause VALUES LPAREN insert_val_list RPAREN .
+
+    SEMICOLON       reduce using rule 71 (insert_stmt -> INSERT INTO table insert_col_clause VALUES LPAREN insert_val_list RPAREN .)
+
+
+state 153
+
+    (77) insert_val_list -> insert_val_list COMMA . column_val
+    (21) column_val -> . INTEGER_LITERAL
+    (22) column_val -> . FLOAT_LITERAL
+    (23) column_val -> . STRING_LITERAL
+    (24) column_val -> . NULL
+
+    INTEGER_LITERAL shift and go to state 45
+    FLOAT_LITERAL   shift and go to state 43
+    STRING_LITERAL  shift and go to state 52
+    NULL            shift and go to state 42
+
+    column_val                     shift and go to state 161
+
+state 154
+
+    (68) col_def_opts -> PRIMARY KEY .
+    (70) col_def_opts -> PRIMARY KEY . NOT NULL
+
+    RPAREN          reduce using rule 68 (col_def_opts -> PRIMARY KEY .)
+    COMMA           reduce using rule 68 (col_def_opts -> PRIMARY KEY .)
+    NOT             shift and go to state 162
+
+
+state 155
+
+    (67) col_def_opts -> NOT NULL .
+    (69) col_def_opts -> NOT NULL . PRIMARY KEY
+
+    RPAREN          reduce using rule 67 (col_def_opts -> NOT NULL .)
+    COMMA           reduce using rule 67 (col_def_opts -> NOT NULL .)
+    PRIMARY         shift and go to state 163
+
+
+state 156
+
+    (63) col_def -> column CHAR LPAREN INTEGER_LITERAL . RPAREN col_def_opts
+
+    RPAREN          shift and go to state 164
+
+
+state 157
+
+    (64) col_def -> column VARCHAR LPAREN INTEGER_LITERAL . RPAREN col_def_opts
+
+    RPAREN          shift and go to state 165
+
+
+state 158
+
+    (81) update_list -> update_list COMMA column EQ column_val .
+
+    COMMA           reduce using rule 81 (update_list -> update_list COMMA column EQ column_val .)
+    WHERE           reduce using rule 81 (update_list -> update_list COMMA column EQ column_val .)
+    SEMICOLON       reduce using rule 81 (update_list -> update_list COMMA column EQ column_val .)
+
+
+state 159
+
+    (51) comparison -> cterm IS NOT NULL .
+
+    AND             reduce using rule 51 (comparison -> cterm IS NOT NULL .)
+    OR              reduce using rule 51 (comparison -> cterm IS NOT NULL .)
+    SEMICOLON       reduce using rule 51 (comparison -> cterm IS NOT NULL .)
+    LIMIT           reduce using rule 51 (comparison -> cterm IS NOT NULL .)
+    RPAREN          reduce using rule 51 (comparison -> cterm IS NOT NULL .)
+
+
+state 160
+
+    (58) limit -> LIMIT INTEGER_LITERAL COMMA . INTEGER_LITERAL
+
+    INTEGER_LITERAL shift and go to state 166
+
+
+state 161
+
+    (77) insert_val_list -> insert_val_list COMMA column_val .
+
+    RPAREN          reduce using rule 77 (insert_val_list -> insert_val_list COMMA column_val .)
+    COMMA           reduce using rule 77 (insert_val_list -> insert_val_list COMMA column_val .)
+
+
+state 162
+
+    (70) col_def_opts -> PRIMARY KEY NOT . NULL
+
+    NULL            shift and go to state 167
+
+
+state 163
+
+    (69) col_def_opts -> NOT NULL PRIMARY . KEY
+
+    KEY             shift and go to state 168
+
+
+state 164
+
+    (63) col_def -> column CHAR LPAREN INTEGER_LITERAL RPAREN . col_def_opts
+    (66) col_def_opts -> .
+    (67) col_def_opts -> . NOT NULL
+    (68) col_def_opts -> . PRIMARY KEY
+    (69) col_def_opts -> . NOT NULL PRIMARY KEY
+    (70) col_def_opts -> . PRIMARY KEY NOT NULL
+
+    RPAREN          reduce using rule 66 (col_def_opts -> .)
+    COMMA           reduce using rule 66 (col_def_opts -> .)
+    NOT             shift and go to state 133
+    PRIMARY         shift and go to state 132
+
+    col_def_opts                   shift and go to state 169
+
+state 165
+
+    (64) col_def -> column VARCHAR LPAREN INTEGER_LITERAL RPAREN . col_def_opts
+    (66) col_def_opts -> .
+    (67) col_def_opts -> . NOT NULL
+    (68) col_def_opts -> . PRIMARY KEY
+    (69) col_def_opts -> . NOT NULL PRIMARY KEY
+    (70) col_def_opts -> . PRIMARY KEY NOT NULL
+
+    RPAREN          reduce using rule 66 (col_def_opts -> .)
+    COMMA           reduce using rule 66 (col_def_opts -> .)
+    NOT             shift and go to state 133
+    PRIMARY         shift and go to state 132
+
+    col_def_opts                   shift and go to state 170
+
+state 166
+
+    (58) limit -> LIMIT INTEGER_LITERAL COMMA INTEGER_LITERAL .
+
+    SEMICOLON       reduce using rule 58 (limit -> LIMIT INTEGER_LITERAL COMMA INTEGER_LITERAL .)
+
+
+state 167
+
+    (70) col_def_opts -> PRIMARY KEY NOT NULL .
+
+    RPAREN          reduce using rule 70 (col_def_opts -> PRIMARY KEY NOT NULL .)
+    COMMA           reduce using rule 70 (col_def_opts -> PRIMARY KEY NOT NULL .)
+
+
+state 168
+
+    (69) col_def_opts -> NOT NULL PRIMARY KEY .
+
+    RPAREN          reduce using rule 69 (col_def_opts -> NOT NULL PRIMARY KEY .)
+    COMMA           reduce using rule 69 (col_def_opts -> NOT NULL PRIMARY KEY .)
+
+
+state 169
+
+    (63) col_def -> column CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts .
+
+    RPAREN          reduce using rule 63 (col_def -> column CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts .)
+    COMMA           reduce using rule 63 (col_def -> column CHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts .)
+
+
+state 170
+
+    (64) col_def -> column VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts .
+
+    RPAREN          reduce using rule 64 (col_def -> column VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts .)
+    COMMA           reduce using rule 64 (col_def -> column VARCHAR LPAREN INTEGER_LITERAL RPAREN col_def_opts .)
+
