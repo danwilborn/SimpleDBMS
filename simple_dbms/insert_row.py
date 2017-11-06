@@ -37,30 +37,27 @@ class InsertRow:
 		
 		for val in self._values:
 
-			if val is None:
-				offset_code = -2
-				self._data.write_int(offset_code)
-
 			col = self._table.get_column(colNum)
 			if col.is_primary_key():
 				offset_code = -1
-				print 'key offset'
+				self._key = DataOutputStream()
 				self._data.write_int(offset_code)
-				
-			if type(val) is int:
-				offset = offset + 4
-				print 'int offset'
-				self._data.write_int(offset)				
 
-			if type(val) is str:
+			elif val is None:
+				offset_code = -2
+				self._data.write_int(offset_code)
+	
+			elif type(val) is int:
+				self._data.write_int(offset)
+				offset = offset + 4				
+
+			elif type(val) is str:
+				self._data.write_int(offset)
 				offset = offset + len(val)
-				print 'str offset'
-				self._data.write_int(offset)
 
-			if type(val) is float:
-				offset = offset + 8
-				print 'float offset'
+			elif type(val) is float:
 				self._data.write_int(offset)
+				offset = offset + 8
 
 			colNum += 1
 
@@ -73,35 +70,28 @@ class InsertRow:
 
 			col = self._table.get_column(colNum)
 			if col.is_primary_key():
-				print 'insert key'
 				if type(val) is int:
-					print 'int'
 					self._data.write_int(val)
 				elif type(val) is str:
-					print 'str'
 					val = bytearray(val)
 					for c in val:
 						self._data.write_byte(c)
 				elif type(val) is float:
-					print 'float'
 					self._data.write_float(val)
-				print 'inserted key'
+				self._key.write_int(val)
 
-			if type(val) is int:
-				print 'insert int'
+			elif type(val) is int:
 				self._data.write_int(val)				
-				print 'inserted int'
 
-			if type(val) is str:
-				print 'insert str'
+			elif type(val) is str:
 				val = bytearray(val)
 				for c in val:
 					self._data.write_byte(c)
 
-			if type(val) is float:
-				print 'insert float'
+			elif type(val) is float:
 				self._data.write_float(val)
-
+		
+			colNum += 1
 
 
 	def get_key(self):
